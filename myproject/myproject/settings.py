@@ -31,13 +31,24 @@ ALLOWED_HOSTS = ['127.0.0.1']
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process} {thread} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
+            'formatter': 'verbose',  # добавлен параметр formatter
         },
         'file': {
             'class': 'logging.FileHandler',
             'filename': './log/django.log',
+            'formatter': 'verbose',  # добавлен параметр formatter
         },
     },
     'loggers': {
@@ -46,7 +57,7 @@ LOGGING = {
             'level': 'INFO',
         },
         'gameapp': {
-            'handlers': ['console'],
+            'handlers': ['console', 'file'],
             'level': 'DEBUG',
             'propagate': True,
         },
