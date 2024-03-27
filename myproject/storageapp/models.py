@@ -19,7 +19,7 @@ from django.db import models
 class Client(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    phone_number = models.CharField(max_length=12)
+    phone_number = models.CharField(max_length=12, default='89505555555')
     address = models.CharField(max_length=150)
     date_of_registry = models.DateField(auto_now_add=True)
 
