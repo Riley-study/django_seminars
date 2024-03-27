@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import random
 import logging
+from .models import Coin
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +14,18 @@ def index(request):
 
 
 def heads_or_tails(request):
-    return HttpResponse(f'{random.choice(["Орел", "Решка"])}')
+    size = random.choice(["Орел", "Решка"])
+    coin = Coin(size=size)
+    coin.save()
+    return HttpResponse(f'{size}')
+
+
+def coin_values(request):
+    val = Coin.values()
+    lst = []
+    for i in val:
+        lst.append(i.size)
+    return HttpResponse(str(lst))
 
 
 def cube(request):
@@ -48,6 +60,7 @@ def main_page(request):
     logger.info('successful opening the main page')
     return HttpResponse(html_main)
 
+
 html_about_us = """
 <!doctype html>
 <html lang="en">
@@ -71,4 +84,3 @@ html_about_us = """
 def about_us(request):
     logger.info('successful opening page about us')
     return HttpResponse(html_about_us)
-
