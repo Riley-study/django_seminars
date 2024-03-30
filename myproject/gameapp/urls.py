@@ -19,9 +19,9 @@ from .views import index, cube, heads_or_tails, numbers, main_page, about_us, co
 
 urlpatterns = [
     path('', index, name='index'),
-    path('heads_or_tails/', heads_or_tails, name='heads_or_tails'),
-    path('cube/', cube, name='cube'),
-    path('numbers/', numbers, name='numbers'),
+    path('heads_or_tails/<int:count>', heads_or_tails, name='heads_or_tails'),
+    path('cube/<int:count>', cube, name='cube'),
+    path('numbers/<int:count>', numbers, name='numbers'),
     path('main/', main_page, name='main_page'),
     path('about_us/', about_us, name='about_us'),
     path('coin_values/', coin_values, name='coin_values'),

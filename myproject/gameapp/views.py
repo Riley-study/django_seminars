@@ -13,11 +13,11 @@ def index(request):
     return HttpResponse('Hello world!!')
 
 
-def heads_or_tails(request):
-    size = random.choice(["Орел", "Решка"])
-    coin = Coin(size=size)
-    coin.save()
-    return HttpResponse(f'{size}')
+# def heads_or_tails(request):
+#     size = random.choice(["Орел", "Решка"])
+#     coin = Coin(size=size)
+#     coin.save()
+#     return HttpResponse(f'{size}')
 
 
 def coin_values(request):
@@ -28,12 +28,12 @@ def coin_values(request):
     return HttpResponse(str(lst))
 
 
-def cube(request):
-    return HttpResponse(f'{random.randint(1, 6)}')
-
-
-def numbers(request):
-    return HttpResponse(f'{random.randint(1, 100)}')
+# def cube(request):
+#     return HttpResponse(f'{random.randint(1, 6)}')
+#
+#
+# def numbers(request):
+#     return HttpResponse(f'{random.randint(1, 100)}')
 
 
 # Homework 1
@@ -84,3 +84,44 @@ html_about_us = """
 def about_us(request):
     logger.info('successful opening page about us')
     return HttpResponse(html_about_us)
+
+
+def heads_or_tails(request, count=5):
+    lst = []
+    for i in range(count):
+        size = random.choice(["Орел", "Решка"])
+        # coin = Coin(size=size)
+        # coin.save()
+        lst.append(size)
+    context = {
+        'game_name': 'Орел или решка',
+        'value': lst,
+        'count': count,
+    }
+    return render(request, 'choose_game.html', context)
+
+
+def cube(request, count=5):
+    lst = []
+    for i in range(count):
+        res = random.randint(1, 6)
+        lst.append(res)
+    context = {
+        'game_name': 'Бросаем кубик',
+        'value': lst,
+        'count': count,
+    }
+    return render(request, 'choose_game.html', context)
+
+
+def numbers(request, count=5):
+    lst = []
+    for i in range(count):
+        res = random.randint(1, 100)
+        lst.append(res)
+    context = {
+        'game_name': 'От 1 до 100',
+        'value': lst,
+        'count': count,
+    }
+    return render(request, 'choose_game.html', context)

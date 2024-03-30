@@ -1,11 +1,10 @@
 from django.http import HttpResponse
+from django.shortcuts import render
+
 from .models import Author
 
 
 # Create your views here.
-def index(request):
-    return HttpResponse('Hello world!!')
-
 
 def view_authors(request):
     lst = []
@@ -16,3 +15,20 @@ def view_authors(request):
         author.save()
         lst.append(author.first_name)
     return HttpResponse(f'{lst}')
+
+
+def index(request):
+    context = {
+        'name': 'Django project',
+        'data': '29.03.2024'
+    }
+    return render(request, 'blogapp/index.html', context)
+
+
+def about_us(request):
+    context = {
+        'name': 'Natalya',
+        'study': 'GeekBrains',
+        'subjects': ['Django', 'Flask', 'FastAPI']
+    }
+    return render(request, 'blogapp/about_us.html', context)
