@@ -8,6 +8,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('count', type=int, help='Create clients and products')
 
+
     def handle(self, *args, **kwargs):
         count = kwargs.get('count')
         for i in range(1, count + 1):
@@ -15,8 +16,4 @@ class Command(BaseCommand):
             product = Product(name=f'prod{i}', description=f'very good prod {i}', price=50 + i, quantity=i)
             client.save()
             product.save()
-            #
-            # for j in range(1, count + 1):
-            #     set_of_products = set(product,)
-            #     order = Order(client=client, products=set_of_products, total_amount=50 + i)
-            #     order.save()
+
