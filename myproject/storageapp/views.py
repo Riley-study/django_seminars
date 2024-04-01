@@ -12,11 +12,8 @@ def index(request):
 
 
 def list_of_products(request, id_client, period):
-    lst= []
-    # client = Client.objects.filter(pk=id_client).first()
+    lst = []
     client = get_object_or_404(Client, pk=id_client)
-    # lst.append(client)
-    # posts = Post.objects.filter(author=author).order_by('-id')[:5]
     end_date = datetime.now()
     start_date = end_date - timedelta(days=period)
     start_date_only = start_date.date()
@@ -32,4 +29,3 @@ def list_of_products(request, id_client, period):
                'period': period,
                'list_of_products': lst}
     return render(request, 'list_of_products.html', context)
-
