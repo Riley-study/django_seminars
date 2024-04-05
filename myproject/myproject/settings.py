@@ -28,6 +28,10 @@ ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

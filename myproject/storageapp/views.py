@@ -1,8 +1,10 @@
 from datetime import datetime, timedelta
 
+from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 
+from .forms import ImageForm
 from .models import Client, Order
 
 
@@ -28,4 +30,16 @@ def list_of_products(request, id_client, period):
     context = {'client': client.name,
                'period': period,
                'list_of_products': lst}
-    return render(request, 'list_of_products.html', context)
+    return render(request, 'storageapp/list_of_products.html', context)
+
+
+def upload_image(request):
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.cleaned_data['image']
+            fs = FileSystemStorage()
+            fs.save(image.name, image)
+    else:
+        form = ImageForm()
+    return render(request, 'storageapp/upload_image.html', {'form': form, 'answer': 'Изображение добавлено!'})
