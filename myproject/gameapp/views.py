@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import random
 import logging
 from .models import Coin
+from .forms import GameForm
 
 logger = logging.getLogger(__name__)
 
@@ -98,7 +99,7 @@ def heads_or_tails(request, count=5):
         'value': lst,
         'count': count,
     }
-    return render(request, 'choose_game.html', context)
+    return render(request, 'gameapp/choose_game.html', context)
 
 
 def cube(request, count=5):
@@ -111,7 +112,7 @@ def cube(request, count=5):
         'value': lst,
         'count': count,
     }
-    return render(request, 'choose_game.html', context)
+    return render(request, 'gameapp/choose_game.html', context)
 
 
 def numbers(request, count=5):
@@ -124,4 +125,21 @@ def numbers(request, count=5):
         'value': lst,
         'count': count,
     }
-    return render(request, 'choose_game.html', context)
+    return render(request, 'gameapp/choose_game.html', context)
+
+
+def game_form(request):
+    if request.method == 'POST':
+        form = GameForm(request.POST)
+        if form.is_valid():
+            game = form.cleaned_data['game']
+            attempts = form.cleaned_data['attempts']
+            if game == 'coin':
+                return heads_or_tails(request, count=attempts)
+            if game == 'cube':
+                return cube(request, count=attempts)
+            if game == 'number':
+                return numbers(request, count=attempts)
+    else:
+        form = GameForm()
+    return render(request, 'gameapp/game_form.html', {'form': form})
