@@ -1,0 +1,10 @@
+/media/
+/static/
+*.sqlite3
+*.log
+*.pyc
+/myproject/media/
+/myproject/static/
+/myproject/*.sqlite3
+/myproject/*.log
+/myproject/*.pyc
