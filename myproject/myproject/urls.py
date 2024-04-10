@@ -22,4 +22,5 @@ urlpatterns = [
     path('game/', include('gameapp.urls')),
     path('', include('blogapp.urls')),
     path('store/', include('storageapp.urls')),
+    path('__debug__/', include("debug_toolbar.urls")),
 ]
